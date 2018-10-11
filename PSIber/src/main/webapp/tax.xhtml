@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags"> 
+<h:head></h:head> 
+<body>
+	<ui:composition template="/WEB-INF/template/commonLayout.xhtml">
+		 <p:importEnum type="com.pc.entity.enums.YearsEnum" />
+		<ui:define name="content">
+		<section id="boxes">
+			<div class="container">
+				<h:form id="mainForm">
+						<p:panelGrid  class="list-group-item" style="width:100%" columns="2" layout="grid" >
+							<p:fieldset style="margin-bottom:10px;margin-top:10px">
+								 <H3 class="hearding">Please Provide the following:</H3>
+								<h:panelGroup styleClass="md-inputfield" style="margin-top:10px">
+						   	 	   <p:outputLabel class="box-title" value="Select Tax Year" for="taxYear" />
+					              
+					                <p:selectOneMenu id="taxYear" style="width:95%" value="#{taxUI.taxInput.year}"  required="true" requiredMessage="Please select tax year">
+										<f:selectItem itemLabel="---Select---"  noSelectionOption="true" />
+										<f:selectItems value="#{commonItemUI.yearsDD}" var="rv" itemLabel="#{rv.year}" itemValue="#{rv}" />
+									</p:selectOneMenu>
+					            </h:panelGroup>
+					            
+					            <h:panelGroup styleClass="md-inputfield" style="margin-top:10px">
+						   	 	   <p:outputLabel class="box-title" value="Enter Age" for="age" />
+					               <p:inputText value="#{taxUI.taxInput.age}" type="number"  id="age" style="width:100%" required="true" requiredMessage="Please enter age"/>
+					            </h:panelGroup>
+					            
+					            <h:panelGroup styleClass="md-inputfield" >
+						   	 	   <p:outputLabel class="box-title" value="Enter Total Taxable Earnings" for="totalEarnings" />
+					               <p:inputText value="#{taxUI.taxInput.totalTaxableEarnings}" id="totalEarnings" style="width:100%" required="true" requiredMessage="Please total taxable earnings"/>
+					            </h:panelGroup>
+					            
+					            
+					            <h:panelGroup styleClass="md-inputfield">
+						   	 	   <p:outputLabel class="box-title" value="Select type Taxable Earnings(monthly or annual)" for="type" />
+					                <p:selectOneMenu id="type" style="width:95%" value="#{taxUI.taxInput.taxableType}"  required="true" requiredMessage="Please select type taxable earnings">
+										<f:selectItem itemLabel="---Select---"  noSelectionOption="true" />
+										<f:selectItems value="#{commonItemUI.taxableTypeEnumDD}" var="rv" itemLabel="#{rv.friendlyName}" itemValue="#{rv}" />
+									</p:selectOneMenu>
+					            </h:panelGroup>
+					            
+					            <h:panelGroup styleClass="md-inputfield">
+						   	 	   <p:outputLabel class="box-title" value="Medical Aid Members + Main" for="medicalAid" />
+					               <p:selectBooleanCheckbox style="width:100%" id="medicalAid"  value="#{taxUI.taxInput.medicalAidMember}"/>
+					            </h:panelGroup>
+					            <br/>
+					            <br/>
+					            <h:panelGroup styleClass="md-inputfield">
+					                 <p:commandButton action="#{taxUI.calculateTax()}" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('taxesDialog').show()" value="Submit" icon="fa fa-save" class="btn btn-primary" update="@form taxesForm" />
+								</h:panelGroup>                
+					            
+				          </p:fieldset>
+				           
+				          <p:fieldset style="margin-bottom:10px;margin-top:10px">
+				          		
+							  <h:graphicImage  value="resources/ui/img/tax-calculator.jpg"/>
+							  <p:spacer height="90"></p:spacer>
+				          </p:fieldset>
+				          
+				        </p:panelGrid>
+			     </h:form>
+	        </div>
+        </section>
+        
+        <p:dialog header="Your taxes" widgetVar="taxesDialog" hideEffect="clip" showEffect="clip" id="taxesDialog" appendTo="@(body)" modal="true" closable="true" width="50%" height="40vh" responsive="true">
+			<h:form id="taxesForm">
+				<p:panelGrid  class="list-group-item" style="width:100%" columns="2"  >
+					 <h:panelGroup styleClass="md-inputfield">
+						  <p:outputLabel  value="PAYE(before tax credit):" />
+						  <p:panelGrid  class="list-group-item" style="width:100%" columns="1" >
+						  	 <h:panelGroup styleClass="md-inputfield">
+							  	<p:outputLabel  value="Monthly:" />
+							  </h:panelGroup>
+							  <h:panelGroup styleClass="md-inputfield">
+							  	<p:outputLabel  value="Annually:" />
+							  </h:panelGroup>
+						  </p:panelGrid>
+				     </h:panelGroup>
+				     <h:panelGroup styleClass="md-inputfield">
+						  <br/>
+						  <p:panelGrid  class="list-group-item" style="width:100%" columns="1" >
+						  	 <h:panelGroup styleClass="md-inputfield">
+							  	<p:outputLabel  value="R #{taxUI.taxOutput.monthlyPAYEBeforeTax}" />
+							  </h:panelGroup>
+							  <h:panelGroup styleClass="md-inputfield">
+							  	<p:outputLabel  value="R #{taxUI.taxOutput.annualPAYEBeforeTax}" />
+							  </h:panelGroup>
+						  </p:panelGrid>
+				     </h:panelGroup>
+				     
+				     <h:panelGroup styleClass="md-inputfield">
+						  <p:outputLabel  value="Tax Credits:" />
+				     </h:panelGroup>
+				     <h:panelGroup styleClass="md-inputfield">
+						  <p:outputLabel  value="R #{taxUI.taxOutput.taxCredits} " />
+				     </h:panelGroup>
+				     
+				     <h:panelGroup styleClass="md-inputfield">
+						  <p:outputLabel  value="PAYE Due(After Tax Credit):" />
+				     </h:panelGroup>
+				     <h:panelGroup styleClass="md-inputfield">
+						  <p:outputLabel  value="R #{taxUI.taxOutput.PAYEDueAfterTax} " />
+				     </h:panelGroup>
+				     
+				     <h:panelGroup styleClass="md-inputfield">
+						  <p:outputLabel  value="Net Cash Pay after PAYE Due" />
+				     </h:panelGroup>
+				     <h:panelGroup styleClass="md-inputfield">
+						  <p:outputLabel  value="R #{taxUI.taxOutput.netCashPay} " />
+				     </h:panelGroup>
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+			 
+    	</ui:define>
+    </ui:composition>
+</body> 
+</html>

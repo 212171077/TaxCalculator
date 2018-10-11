@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+   <h:head>
+	  <title>PSIber</title>
+	  <!-- Tell the browser to be responsive to screen width -->
+	  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"></meta>
+	  <!-- UI Style -->
+	  <h:outputStylesheet name="ui/css/myStyle.css" />
+	  <!-- Google Font -->
+	  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"></link>
+	</h:head> 
+
+    <body class="hold-transition #{commonUI.theme} fixed sidebar-mini">
+		<div id="page" class="wrapper">
+			
+		   <div id="header">
+				<ui:insert name="header" >
+				  	<ui:include src="./commonHeader.xhtml" />
+				</ui:insert>
+		    </div>
+		    
+		    <section id="main">
+		    
+			    <!-- Global Growl Message -->
+			    <p:growl autoUpdate="true" id="msg"  showSummary="false" showDetail="true" sticky="false"></p:growl>
+		    
+			    <div id="content">
+			        <!-- <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  --> 
+				  	<ui:insert name="content" >
+				 	  <ui:include src="./commonContent.xhtml" />
+				   	</ui:insert>
+			    </div>
+			    
+			    <!-- Global Confirm Dialog -->
+			    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" width="350">
+					<p:commandButton value="Yes" styleClass="ui-confirmdialog-yes btn btn-success btn-xs" icon="ui-icon-check" />
+					<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no btn btn-warning btn-xs" icon="ui-icon-close" />
+				</p:confirmDialog>
+			    
+		    </section>
+			    
+		    <div id="footer">
+		    	<ui:insert name="footer" >
+		    	  <ui:include src="./commonFooter.xhtml" />
+		    	</ui:insert>
+	    	 </div>
+	      </div>
+	      
+	  
+    </body> 
+</html>
