@@ -20,22 +20,30 @@ public class TaxInputBean {
 	/**Medical Aid Members + Main*/
 	private boolean medicalAidMember;
 	
+	/**Number of dependant(s)*/
+	private int numOfependent;
+	
 	
 	
 	public TaxInputBean() {
 		super();
 	}
 
+	
+	
 	public TaxInputBean(YearsEnum year, int age, double totalTaxableEarnings, TaxableTypeEnum taxableType,
-			boolean medicalAidMember) {
+			boolean medicalAidMember, int numOfependent) {
 		super();
 		this.year = year;
 		this.age = age;
 		this.totalTaxableEarnings = totalTaxableEarnings;
 		this.taxableType = taxableType;
 		this.medicalAidMember = medicalAidMember;
+		this.numOfependent = numOfependent;
 	}
-	
+
+
+
 	/**
 	 * @return the year
 	 */
@@ -95,6 +103,20 @@ public class TaxInputBean {
 	 */
 	public void setMedicalAidMember(boolean medicalAidMember) {
 		this.medicalAidMember = medicalAidMember;
+	}
+
+	/**
+	 * @return the numOfependent
+	 */
+	public int getNumOfependent() {
+		return numOfependent;
+	}
+
+	/**
+	 * @param numOfependent the numOfependent to set
+	 */
+	public void setNumOfependent(int numOfependent) {
+		this.numOfependent = numOfependent;
 	}
 	
 }

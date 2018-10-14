@@ -17,20 +17,29 @@ public class TaxOutputBean
 	/**Net Cash Pay after PAYE Due*/
 	private double NetCashPay;
 	
+	/**Check if user must pay tax or not*/
+	private boolean payTax;
+	
 	
 	public TaxOutputBean() {
 		super();
 	}
 	
+	
+
 	public TaxOutputBean(double monthlyPAYEBeforeTax, double annualPAYEBeforeTax, double taxCredits,
-			double pAYEDueAfterTax, double netCashPay) {
+			double pAYEDueAfterTax, double netCashPay, boolean payTax) {
 		super();
 		this.monthlyPAYEBeforeTax = monthlyPAYEBeforeTax;
 		this.annualPAYEBeforeTax = annualPAYEBeforeTax;
 		this.taxCredits = taxCredits;
 		PAYEDueAfterTax = pAYEDueAfterTax;
 		NetCashPay = netCashPay;
+		this.payTax = payTax;
 	}
+
+
+
 	/**
 	 * @return the monthlyPAYEBeforeTax
 	 */
@@ -91,5 +100,25 @@ public class TaxOutputBean
 	public void setNetCashPay(double netCashPay) {
 		NetCashPay = netCashPay;
 	}
+
+
+
+	/**
+	 * @return the payTax
+	 */
+	public boolean isPayTax() {
+		return payTax;
+	}
+
+
+
+	/**
+	 * @param payTax the payTax to set
+	 */
+	public void setPayTax(boolean payTax) {
+		this.payTax = payTax;
+	}
+
+	
 
 }

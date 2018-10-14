@@ -2,29 +2,28 @@ package com.pc.entities.enums;
 
 import java.util.Calendar;
 
-/**
- * This Enum Auto calculate and
- * return current and previous year
- */
 public enum YearsEnum {
 
-	currentYear() {
+	year2018() {
 		@Override
 		public int getYear() {
 			//Getting the current
-			int year = Calendar.getInstance().get(Calendar.YEAR);
+			//int year = Calendar.getInstance().get(Calendar.YEAR);
+			int year=2018;
 			return year;
 		}
 	},
 
-	lastYear() {
+	year2017() {
 		@Override
 		public int getYear() {
 			
 			//Getting the previous year
-			Calendar prevYear = Calendar.getInstance();
-		    prevYear.add(Calendar.YEAR, -1);
-			return prevYear.get(Calendar.YEAR);
+			/*Calendar prevYear = Calendar.getInstance();
+		     prevYear.add(Calendar.YEAR, -1);
+		     prevYear.get(Calendar.YEAR)*/
+		    int year=2017;
+			return year;
 		}
 	};
 	

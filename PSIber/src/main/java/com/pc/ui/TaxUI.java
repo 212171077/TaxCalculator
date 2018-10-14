@@ -39,6 +39,15 @@ public class TaxUI extends AbstractUI{
 	public void calculateTax()
 	{
 		taxOutput=taxService.calculateTax(taxInput);
+		
+		//Round Off
+		taxOutput.setAnnualPAYEBeforeTax(Math.round(taxOutput.getAnnualPAYEBeforeTax()));
+		taxOutput.setMonthlyPAYEBeforeTax(Math.round(taxOutput.getMonthlyPAYEBeforeTax()));
+		taxOutput.setNetCashPay(Math.round(taxOutput.getNetCashPay()));
+		taxOutput.setPAYEDueAfterTax(Math.round(taxOutput.getPAYEDueAfterTax()));
+		taxOutput.setTaxCredits(Math.round(taxOutput.getTaxCredits()));
+		
+		taxInput=new TaxInputBean();
 	}
 	
 

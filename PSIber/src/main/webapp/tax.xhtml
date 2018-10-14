@@ -34,7 +34,7 @@
 					            
 					            <h:panelGroup styleClass="md-inputfield" >
 						   	 	   <p:outputLabel class="box-title" value="Enter Total Taxable Earnings" for="totalEarnings" />
-					               <p:inputText value="#{taxUI.taxInput.totalTaxableEarnings}" id="totalEarnings" style="width:100%" required="true" requiredMessage="Please total taxable earnings"/>
+					               <p:inputText type="number" value="#{taxUI.taxInput.totalTaxableEarnings}" id="totalEarnings" style="width:100%" required="true" requiredMessage="Please total taxable earnings"/>
 					            </h:panelGroup>
 					            
 					            
@@ -47,9 +47,18 @@
 					            </h:panelGroup>
 					            
 					            <h:panelGroup styleClass="md-inputfield">
-						   	 	   <p:outputLabel class="box-title" value="Medical Aid Members + Main" for="medicalAid" />
-					               <p:selectBooleanCheckbox style="width:100%" id="medicalAid"  value="#{taxUI.taxInput.medicalAidMember}"/>
+					            	 <p:selectBooleanCheckbox style="width:5%" id="medicalAid"  value="#{taxUI.taxInput.medicalAidMember}">
+					            	 	<p:ajax event="change"  update="pgDependents"></p:ajax>
+					            	 </p:selectBooleanCheckbox>
+						   	 	   <p:outputLabel style="width:100%" class="box-title" value="Medical Aid Members" for="medicalAid"/>
+					              
 					            </h:panelGroup>
+					            
+					             <h:panelGroup styleClass="md-inputfield" id="pgDependents"  style="width:100%">
+					             		<br/>
+					             	   <p:outputLabel style="width:100%"  rendered="#{taxUI.taxInput.medicalAidMember}" class="box-title" value="Enter Number Of Dependant(s)" for="numOfDep" />
+					               		<p:inputText  rendered="#{taxUI.taxInput.medicalAidMember}" type="number" value="#{taxUI.taxInput.numOfependent}" id="numOfDep" style="width:100%" required="true" requiredMessage="Please number of dependant(s)"/>
+					             </h:panelGroup>
 					            <br/>
 					            <br/>
 					            <h:panelGroup styleClass="md-inputfield">
@@ -69,7 +78,7 @@
 	        </div>
         </section>
         
-        <p:dialog header="Your taxes" widgetVar="taxesDialog" hideEffect="clip" showEffect="clip" id="taxesDialog" appendTo="@(body)" modal="true" closable="true" width="50%" height="40vh" responsive="true">
+        <p:dialog header="Your taxes" widgetVar="taxesDialog" hideEffect="clip" showEffect="clip" id="taxesDialog" appendTo="@(body)" modal="true" closable="true" width="50%" height="45vh" responsive="true">
 			<h:form id="taxesForm">
 				<p:panelGrid  class="list-group-item" style="width:100%" columns="2"  >
 					 <h:panelGroup styleClass="md-inputfield">
@@ -116,6 +125,14 @@
 						  <p:outputLabel  value="R #{taxUI.taxOutput.netCashPay} " />
 				     </h:panelGroup>
 				</p:panelGrid>
+				<br/>
+				<p:fieldset style="background-color: #57d457" rendered="#{!taxUI.taxOutput.payTax}">
+					
+						 <p>Your annual income is less than the income level at which a person begins paying income taxes(Tax Threshold),as a result you will not pay any tax.</p>
+					
+				</p:fieldset>
+				<br/>
+				
 			</h:form>
 		</p:dialog>
 			 
