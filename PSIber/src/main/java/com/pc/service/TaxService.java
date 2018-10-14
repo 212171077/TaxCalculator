@@ -118,7 +118,7 @@ public class TaxService {
 		{
 			taxOutput.setPayTax(false);
 			monthlyTax=0.00;
-			monthlyTax=0.00;
+			annuallyTax=0.00;
 		}
 		
 		/*
@@ -127,17 +127,33 @@ public class TaxService {
 		 * */
 		if(taxInput.getTaxableType()==TaxableTypeEnum.annual)
 		{
-			taxOutput.setPAYEDueAfterTax(annuallyTax);
-			netCashPay=totalAnnualySalary-annuallyTax;
-			//taxOutput.setNetCashPay(netCashPay);
-			taxOutput.setNetCashPay(netCashPay-getUIF());
+			if(taxOutput.isPayTax())
+			{
+				taxOutput.setPAYEDueAfterTax(annuallyTax);
+				netCashPay=totalAnnualySalary-annuallyTax;
+				//taxOutput.setNetCashPay(netCashPay);
+				taxOutput.setNetCashPay(netCashPay-getUIF());
+			}
+			else
+			{
+				taxOutput.setPAYEDueAfterTax(0.00);
+				taxOutput.setNetCashPay(taxInput.getTotalTaxableEarnings()*12);
+			}
 		}
 		else
 		{
-			taxOutput.setPAYEDueAfterTax(monthlyTax);
-			netCashPay=totalMonSary-monthlyTax;
-			//taxOutput.setNetCashPay(netCashPay);
-			taxOutput.setNetCashPay(netCashPay-getUIF());
+			if(taxOutput.isPayTax())
+			{
+				taxOutput.setPAYEDueAfterTax(monthlyTax);
+				netCashPay=totalMonSary-monthlyTax;
+				//taxOutput.setNetCashPay(netCashPay);
+				taxOutput.setNetCashPay(netCashPay-getUIF());
+			}
+			else
+			{
+				taxOutput.setPAYEDueAfterTax(0.00);
+				taxOutput.setNetCashPay(taxInput.getTotalTaxableEarnings());
+			}
 		}
 		return taxOutput;
 	}
@@ -224,17 +240,33 @@ public class TaxService {
 		 * */
 		if(taxInput.getTaxableType()==TaxableTypeEnum.annual)
 		{
-			taxOutput.setPAYEDueAfterTax(annuallyTax);
-			netCashPay=totalAnnualySalary-annuallyTax;
-			//taxOutput.setNetCashPay(netCashPay);
-			taxOutput.setNetCashPay(netCashPay-getUIF());
+			if(taxOutput.isPayTax())
+			{
+				taxOutput.setPAYEDueAfterTax(annuallyTax);
+				netCashPay=totalAnnualySalary-annuallyTax;
+				//taxOutput.setNetCashPay(netCashPay);
+				taxOutput.setNetCashPay(netCashPay-getUIF());
+			}
+			else
+			{
+				taxOutput.setPAYEDueAfterTax(0.00);
+				taxOutput.setNetCashPay(taxInput.getTotalTaxableEarnings()*12);
+			}
 		}
 		else
 		{
-			taxOutput.setPAYEDueAfterTax(monthlyTax);
-			netCashPay=totalMonSary-monthlyTax;
-			//taxOutput.setNetCashPay(netCashPay);
-			taxOutput.setNetCashPay(netCashPay-getUIF());
+			if(taxOutput.isPayTax())
+			{
+				taxOutput.setPAYEDueAfterTax(monthlyTax);
+				netCashPay=totalMonSary-monthlyTax;
+				//taxOutput.setNetCashPay(netCashPay);
+				taxOutput.setNetCashPay(netCashPay-getUIF());
+			}
+			else
+			{
+				taxOutput.setPAYEDueAfterTax(0.00);
+				taxOutput.setNetCashPay(taxInput.getTotalTaxableEarnings());
+			}
 		}
 		return taxOutput;
 		
@@ -359,6 +391,7 @@ public class TaxService {
 		{
 			uif=148.72;
 		}
+		
 		return uif;
 	}
 	
